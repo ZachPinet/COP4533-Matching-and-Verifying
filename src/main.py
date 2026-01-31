@@ -1,4 +1,5 @@
 import os
+import time
 
 
 # This is the Gale-Shapley matcher. Its arg is a formatted input file.
@@ -225,10 +226,19 @@ def main():
         print("Invalid input, defaulting to test1. Please enter an integer.")
         input_file = "tests/test1/test1_input.txt"
     
-    # Run the matcher.
+    # Run the matcher and measure its time.
+    start_time = time.time()
     matches_output = matcher(input_file)
+    matcher_time = time.time() - start_time
 
-    # Run the verifier.
+    # Run the verifier and measure its time.
+    start_time = time.time()
+    verifier(matches_output, input_file)
+    verifier_time = time.time() - start_time
+    
+    # Print timing results
+    print(f"\nMatcher runtime: {matcher_time:.6f} seconds")
+    print(f"Verifier runtime: {verifier_time:.6f} seconds")
     verifier(matches_output, input_file)
 
 
